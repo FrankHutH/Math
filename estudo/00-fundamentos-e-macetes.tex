@@ -1,0 +1,337 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,decorations.pathreplacing}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtcolorbox{definicao}[1]{colback=blue!5,colframe=blue!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{exemplo}[1]{colback=green!5,colframe=green!35!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{atencao}[1]{colback=red!5,colframe=red!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{dica}[1]{colback=yellow!12,colframe=orange!70!black,fonttitle=\bfseries,coltitle=black,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{macete}[1]{colback=purple!5,colframe=purple!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+
+\title{\vspace{-1.5cm}\textbf{Tema 0 — Fundamentos Aritméticos e Macetes}\\[2pt]\large A base que sustenta tudo: sinais, ordem das operações e frações}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section*{Por que este tema vem antes de tudo}
+Todo erro em equação, inequação, potência ou função quase sempre não é
+``erro de matéria nova'' — é erro de \textbf{conta básica}: um sinal
+trocado, uma ordem de operação ignorada, uma fração mal somada. Domine
+este arquivo e a taxa de erro boba cai demais.
+
+\section{Regra de sinais — a tabela mais importante da sua vida matemática}
+
+\subsection{Adição e subtração de números com sinal}
+
+\begin{dica}{A ideia da reta numérica: andar para a direita ou esquerda}
+Pense em cada número como um passo numa reta. Número \textbf{positivo}:
+ande para a \textbf{direita}. Número \textbf{negativo}: ande para a
+\textbf{esquerda}. Somar é continuar andando na mesma direção do sinal;
+\textbf{subtrair um número é andar na direção oposta à dele}.
+\end{dica}
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[-{Stealth[length=2.5mm]}, thick] (-5.5,0) -- (5.5,0);
+  \foreach \x in {-5,-4,-3,-2,-1,0,1,2,3,4,5}
+    \draw (\x,0.08) -- (\x,-0.08) node[below]{\small \x};
+  \draw[thick, blue, -{Stealth[length=3mm]}] (0,0.6) to[bend left=15] (3,0.6);
+  \node[above,blue] at (1.5,0.9) {\small $+3$ (direita)};
+  \draw[thick, red, -{Stealth[length=3mm]}] (3,-0.6) to[bend left=15] (1,-0.6);
+  \node[below,red] at (2,-0.9) {\small $-2$ (esquerda)};
+  \filldraw[black] (0,0) circle(2pt);
+  \filldraw[black] (1,0) circle(2pt);
+\end{tikzpicture}
+\end{center}
+No desenho: começando em $0$, ando $3$ para direita (chego no $3$), depois
+ando $2$ para a esquerda (chego no $1$). Isso é $0+3-2=1$.
+
+\begin{definicao}{Regra prática para somar/subtrair dois números com sinal}
+\begin{itemize}[nosep]
+  \item \textbf{Sinais iguais}: some os valores (ignorando o sinal) e mantenha o sinal comum.
+  \[
+  (-4)+(-7) = -(4+7) = -11
+  \]
+  \item \textbf{Sinais diferentes}: subtraia o menor valor do maior (ignorando sinais) e
+  fique com o sinal do número que tem \textbf{maior valor absoluto}.
+  \[
+  (-9)+5 = -(9-5) = -4 \qquad\qquad 9+(-5) = +(9-5)=4
+  \]
+\end{itemize}
+\end{definicao}
+
+\begin{atencao}{O macete que resolve 90\% dos erros de subtração: ``menos com menos vira mais''}
+$a - (-b) = a+b$. Subtrair um número negativo é o mesmo que somar o
+positivo correspondente — os dois sinais de menos ``se cancelam''.
+\[
+7 - (-3) = 7+3 = 10 \qquad\qquad -2-(-5) = -2+5 = 3
+\]
+Sempre que vir \texttt{menos, abre parêntese, menos}, transforme os dois
+sinais em um \texttt{+} \textbf{antes} de fazer qualquer conta.
+\end{atencao}
+
+\subsection{Multiplicação e divisão de números com sinal}
+
+\begin{macete}{O ``jogo da velha'' dos sinais — decore essa tabela de olhos fechados}
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{c|cc}
+$\times$ ou $\div$ & \textbf{mesmo sinal} & \textbf{sinais diferentes}\\
+\hline
+\textbf{resultado} & \textcolor{blue}{$+$} & \textcolor{red}{$-$}
+\end{tabular}
+\end{center}
+\[
+(+)\cdot(+) = + \qquad (-)\cdot(-) = + \qquad (+)\cdot(-) = - \qquad (-)\cdot(+) = -
+\]
+Frase para lembrar: \emph{``amigo do meu amigo é meu amigo (+); inimigo do
+meu inimigo é meu amigo (+); amigo do meu inimigo é meu inimigo (-)''}.
+Vale exatamente igual para \textbf{divisão}.
+\end{macete}
+
+\begin{exemplo}{Aplicando}
+\[
+(-3)\cdot(-4) = 12 \qquad\qquad (-3)\cdot 4 = -12 \qquad\qquad \frac{-20}{-5}=4 \qquad\qquad \frac{-20}{5}=-4
+\]
+\end{exemplo}
+
+\begin{atencao}{Cuidado: regra de sinal de multiplicação NÃO vale para soma}
+$(-3)+(-4) = -7$ (soma sinais iguais $\to$ mantém o sinal e \textbf{soma} os
+valores), mas $(-3)\cdot(-4)=+12$ (multiplicação sinais iguais $\to$
+\textbf{positivo}). São regras diferentes para operações diferentes —
+muita gente mistura as duas.
+\end{atencao}
+
+\section{Potência com sinal — e por que ``subtração de números elevados'' trava tanta gente}
+
+\begin{atencao}{Regra \#1: o parêntese decide se o sinal entra na potência}
+\[
+(-2)^2 = (-2)\cdot(-2) = 4 \qquad\qquad\qquad -2^2 = -(2^2) = -4
+\]
+Sem parêntese, o expoente age só no número, e o sinal de menos fica
+``do lado de fora'', sendo aplicado só no final.
+\end{atencao}
+
+\begin{definicao}{Expoente par ou ímpar decide o sinal do resultado (quando há parêntese)}
+\begin{itemize}[nosep]
+  \item Expoente \textbf{par}: resultado sempre \textbf{positivo}, não importa o sinal da base.
+  $(-3)^2=9,\ (-3)^4=81$.
+  \item Expoente \textbf{ímpar}: resultado \textbf{mantém} o sinal da base.
+  $(-3)^3=-27,\ (-3)^5=-243$.
+\end{itemize}
+\end{definicao}
+
+\begin{atencao}{O erro mais caro da prova: $a^2-b^2 \neq (a-b)^2$}
+Isso \textbf{não} é sobre sinal, é sobre a operação em si — são contas
+diferentes. Compare com números:
+\[
+5^2-3^2 = 25-9=16 \qquad\qquad\qquad (5-3)^2 = 2^2=4
+\]
+$16 \neq 4$! O que \emph{é} verdade (Tema 4 — produtos notáveis) é
+$a^2-b^2=(a-b)(a+b)$, que é diferente de $(a-b)^2$. Não confunda
+\textbf{subtrair dois quadrados} com \textbf{elevar uma subtração ao
+quadrado}.
+\end{atencao}
+
+\begin{exemplo}{``Subtraindo números elevados'' — dois cenários bem diferentes}
+\textbf{Cenário A — só números, calcule cada potência primeiro:}
+\[
+5^3 - 2^3 = 125-8=117
+\]
+\textbf{Cenário B — termos com $x$: só pode ``juntar'' potências de mesma
+base e mesmo expoente (termos semelhantes):}
+\[
+5x^3-2x^3 = 3x^3 \qquad\qquad\text{mas}\qquad\qquad 5x^3-2x^2 \ \text{já não simplifica mais}
+\]
+\end{exemplo}
+
+\begin{macete}{Checklist rápido antes de subtrair algo com expoente}
+\begin{enumerate}[nosep]
+  \item Calcule cada potência \textbf{separadamente} primeiro (respeitando parênteses).
+  \item Só depois disso, aplique a regra de sinais da soma/subtração.
+  \item Se são termos algébricos ($x^n$), só combine quando a \textbf{base e o expoente} forem idênticos.
+\end{enumerate}
+\end{macete}
+
+\section{Ordem das operações — a hierarquia que ninguém pode ignorar}
+
+\begin{definicao}{A hierarquia (de cima para baixo, sempre nessa ordem)}
+\begin{center}
+\begin{tikzpicture}[
+  every node/.style={draw,rounded corners,minimum width=8.5cm,minimum height=0.9cm,font=\small},
+  node distance=2mm
+]
+  \node[fill=red!15] (n1) {\textbf{1º} — Parênteses, colchetes e chaves: $(\ )\ [\ ]\ \{\ \}$};
+  \node[fill=orange!15, below=of n1] (n2) {\textbf{2º} — Potências e raízes: $x^n,\ \sqrt[n]{x}$};
+  \node[fill=yellow!25, below=of n2] (n3) {\textbf{3º} — Multiplicação e divisão (esquerda $\to$ direita)};
+  \node[fill=green!15, below=of n3] (n4) {\textbf{4º} — Adição e subtração (esquerda $\to$ direita)};
+  \draw[-{Stealth[length=3mm]},thick] (n1) -- (n2);
+  \draw[-{Stealth[length=3mm]},thick] (n2) -- (n3);
+  \draw[-{Stealth[length=3mm]},thick] (n3) -- (n4);
+\end{tikzpicture}
+\end{center}
+\end{definicao}
+
+\begin{atencao}{Multiplicação NÃO vem antes de divisão — elas empatam}
+Multiplicação e divisão têm a \textbf{mesma prioridade} entre si; resolve-se
+na ordem em que aparecem, da esquerda para a direita. O mesmo vale para
+soma e subtração entre si. Não existe ``multiplicação sempre antes de
+divisão''.
+\end{atencao}
+
+\begin{exemplo}{Um exemplo que usa a hierarquia inteira, passo a passo}
+\[
+20 - 2\cdot(3+1)^2 \div 4
+\]
+\textbf{Passo 1 (parênteses)}: $3+1=4$.
+\[
+20 - 2\cdot 4^2 \div 4
+\]
+\textbf{Passo 2 (potência)}: $4^2=16$.
+\[
+20 - 2\cdot 16 \div 4
+\]
+\textbf{Passo 3 (multiplicação/divisão, esquerda para direita)}: $2\cdot16=32$, depois $32\div4=8$.
+\[
+20 - 8
+\]
+\textbf{Passo 4 (subtração)}:
+\[
+= 12
+\]
+\end{exemplo}
+
+\begin{macete}{Truque para nunca se perder em conta grande}
+Reescreva a expressão a cada passo, mudando \textbf{só} o pedaço que você
+acabou de calcular — como fizemos acima. Nunca tente resolver ``de
+cabeça'' pulando 2 passos ao mesmo tempo; é aí que mora o erro bobo.
+\end{macete}
+
+\section{Frações — as 4 operações}
+
+\begin{definicao}{Soma e subtração}
+\textbf{Mesmo denominador}: opera só os numeradores e repete o denominador.
+\[
+\frac{3}{7}+\frac{2}{7} = \frac{5}{7}
+\]
+\textbf{Denominadores diferentes}: primeiro reduza ao mesmo denominador
+(usando o MMC, seção abaixo), depois some/subtraia os numeradores.
+\[
+\frac{1}{4}+\frac{1}{6} = \frac{3}{12}+\frac{2}{12} = \frac{5}{12}
+\]
+\end{definicao}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  % pizza 1: 1/4
+  \begin{scope}
+    \draw[thick] (0,0) circle (1.2cm);
+    \draw[thick] (0,0) -- (90:1.2);
+    \draw[thick] (0,0) -- (0:1.2);
+    \fill[blue!30] (0,0) -- (0:1.2) arc (0:90:1.2) -- cycle;
+    \node at (45:0.6) {\small $\frac14$};
+    \node[below] at (0,-1.4) {$\frac14 = \frac{3}{12}$};
+  \end{scope}
+  % pizza 2: 1/6
+  \begin{scope}[xshift=3.2cm]
+    \draw[thick] (0,0) circle (1.2cm);
+    \draw[thick] (0,0) -- (90:1.2);
+    \draw[thick] (0,0) -- (30:1.2);
+    \fill[green!30] (0,0) -- (30:1.2) arc (30:90:1.2) -- cycle;
+    \node at (60:0.7) {\small $\frac16$};
+    \node[below] at (0,-1.4) {$\frac16 = \frac{2}{12}$};
+  \end{scope}
+  % pizza 3: soma = 5/12
+  \begin{scope}[xshift=6.4cm]
+    \draw[thick] (0,0) circle (1.2cm);
+    \draw[thick] (0,0) -- (90:1.2);
+    \draw[thick] (0,0) -- (-60:1.2);
+    \fill[orange!30] (0,0) -- (-60:1.2) arc (-60:90:1.2) -- cycle;
+    \node[below] at (0,-1.4) {$\frac{5}{12}$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+
+\begin{definicao}{Multiplicação — a mais simples}
+Multiplique numerador por numerador, denominador por denominador. Não
+precisa de denominador comum!
+\[
+\frac{2}{3}\cdot\frac{5}{7} = \frac{2\cdot5}{3\cdot7} = \frac{10}{21}
+\]
+\end{definicao}
+
+\begin{definicao}{Divisão — multiplique pela fração invertida}
+\[
+\frac{a}{b}\div\frac{c}{d} = \frac{a}{b}\cdot\frac{d}{c}
+\]
+\end{definicao}
+
+\begin{exemplo}{$\dfrac{2}{3}\div\dfrac{4}{9}$}
+\[
+\frac{2}{3}\cdot\frac{9}{4} = \frac{18}{12} = \frac{3}{2}
+\]
+(simplificamos dividindo $18$ e $12$ por $6$ — veja MDC abaixo).
+\end{exemplo}
+
+\begin{macete}{``Copia, inverte e multiplica'' — e por que funciona}
+Dividir por uma fração é perguntar ``quantas vezes ela cabe?''. Dividir por
+$\frac{c}{d}$ é o mesmo que multiplicar por $\frac{d}{c}$ porque
+$\frac{c}{d}\cdot\frac{d}{c}=1$ — você está multiplicando por um jeito
+disfarçado de $1$ para ``desfazer'' a fração de baixo.
+\end{macete}
+
+\section{MMC e MDC — a ferramenta por trás do denominador comum}
+
+\begin{definicao}{MMC (Mínimo Múltiplo Comum) — para somar/subtrair frações}
+Fatore cada número em primos e pegue \textbf{cada primo com o maior expoente} que aparece.
+\end{definicao}
+
+\begin{exemplo}{MMC de $12$ e $18$}
+\[
+12 = 2^2\cdot3 \qquad\qquad 18=2\cdot3^2
+\]
+Maior expoente de $2$: $2^2$. Maior expoente de $3$: $3^2$.
+\[
+\text{MMC} = 2^2\cdot3^2 = 4\cdot9=36
+\]
+\end{exemplo}
+
+\begin{definicao}{MDC (Máximo Divisor Comum) — para simplificar frações}
+Fatore em primos e pegue \textbf{cada primo comum com o menor expoente}.
+\end{definicao}
+
+\begin{exemplo}{MDC de $18$ e $12$ (para simplificar $\frac{18}{12}$)}
+\[
+18=2\cdot3^2 \qquad 12=2^2\cdot3 \qquad\Rightarrow\qquad \text{MDC}=2\cdot3=6
+\]
+\[
+\frac{18}{12} = \frac{18\div6}{12\div6} = \frac{3}{2}
+\]
+\end{exemplo}
+
+\section*{Checklist final — os erros que mais custam pontos}
+\begin{itemize}[nosep]
+  \item $-3-(-5)$: transforme em $-3+5$ \textbf{antes} de calcular. \emph{(Resposta: $2$.)}
+  \item $(-2)^2 = 4$, mas $-2^2=-4$. Confira sempre se tem parêntese.
+  \item Sinais iguais na \textbf{soma}: soma valores e mantém sinal. Sinais iguais na \textbf{multiplicação}: dá sempre positivo. São regras diferentes!
+  \item $a^2-b^2 \neq (a-b)^2$ — calcule as potências antes de subtrair, a menos que esteja fatorando.
+  \item Ordem das operações: parênteses $\to$ potência/raiz $\to$ multiplicação/divisão (esquerda-direita) $\to$ soma/subtração (esquerda-direita).
+  \item Fração: só soma/subtrai numerador direto se o denominador já for igual — senão, MMC primeiro.
+\end{itemize}
+
+\end{document}
