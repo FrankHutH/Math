@@ -1,0 +1,298 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,decorations.pathreplacing}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtcolorbox{definicao}[1]{colback=blue!5,colframe=blue!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{exemplo}[1]{colback=green!5,colframe=green!35!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{atencao}[1]{colback=red!5,colframe=red!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{dica}[1]{colback=yellow!12,colframe=orange!70!black,fonttitle=\bfseries,coltitle=black,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{macete}[1]{colback=purple!5,colframe=purple!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+
+\title{\vspace{-1.5cm}\textbf{Tema 7 — Bhaskara, do Zero ao Avançado}\\[2pt]\large De onde vem a fórmula, o que ela significa, e todos os atalhos}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section{O problema que a fórmula resolve}
+
+\begin{definicao}{Equação do 2º grau}
+\[
+ax^2+bx+c=0, \qquad a,b,c\in\mathbb{R},\ a\neq0
+\]
+Queremos achar todo $x$ real que torna essa igualdade verdadeira. Ao
+contrário do 1º grau (onde só se isola $x$), aqui $x$ aparece elevado ao
+quadrado — não dá para isolar direto.
+\end{definicao}
+
+\section{De onde vem a fórmula — dedução completa}
+
+\begin{dica}{Ideia central: completar quadrados}
+Vamos transformar $ax^2+bx+c$ em algo do tipo $(x+k)^2 = \text{número}$,
+porque \textbf{isso} sabemos resolver (tirando raiz quadrada dos dois
+lados). O nome da técnica é ``completar quadrados''.
+\end{dica}
+
+\begin{exemplo}{Passo a passo genérico}
+Partimos de
+\[
+ax^2+bx+c=0
+\]
+\textbf{Passo 1} — divida tudo por $a$ (podemos, pois $a\neq0$):
+\[
+x^2+\frac{b}{a}x+\frac{c}{a}=0
+\]
+\textbf{Passo 2} — passe o termo independente para o outro lado:
+\[
+x^2+\frac{b}{a}x = -\frac{c}{a}
+\]
+\textbf{Passo 3} — some $\left(\dfrac{b}{2a}\right)^2$ dos dois lados (o
+valor que ``completa'' o quadrado perfeito — lembra do Tema 4,
+$(x+k)^2=x^2+2kx+k^2$; aqui $2k=\frac{b}{a}$, logo $k=\frac{b}{2a}$):
+\[
+x^2+\frac{b}{a}x+\left(\frac{b}{2a}\right)^2 = -\frac{c}{a}+\left(\frac{b}{2a}\right)^2
+\]
+\textbf{Passo 4} — o lado esquerdo agora é um quadrado perfeito:
+\[
+\left(x+\frac{b}{2a}\right)^2 = \frac{b^2}{4a^2}-\frac{c}{a} = \frac{b^2-4ac}{4a^2}
+\]
+\textbf{Passo 5} — tire a raiz quadrada dos dois lados (\textbf{sem
+esquecer o $\pm$}, pois tanto $k$ quanto $-k$ elevados ao quadrado dão o
+mesmo resultado):
+\[
+x+\frac{b}{2a} = \pm\sqrt{\frac{b^2-4ac}{4a^2}} = \frac{\pm\sqrt{b^2-4ac}}{2a}
+\]
+\textbf{Passo 6} — isole $x$:
+\[
+\boxed{x = \frac{-b\pm\sqrt{b^2-4ac}}{2a}}
+\]
+\end{exemplo}
+
+\begin{macete}{Você não precisa decorar essa dedução, só entender uma vez}
+A fórmula de Bhaskara não é ``mágica'' — é o resultado de completar
+quadrados numa equação genérica. Isso explica por que ela \textbf{sempre}
+funciona: foi construída para funcionar em qualquer $a,b,c$.
+\end{macete}
+
+\section{A fórmula, peça por peça}
+
+\begin{definicao}{Discriminante $\Delta$ (delta)}
+\[
+\Delta = b^2-4ac
+\]
+É a parte de dentro da raiz. Ele sozinho já conta a história da equação
+\textbf{antes} mesmo de você calcular as raízes.
+\end{definicao}
+
+\begin{definicao}{Fórmula de Bhaskara}
+\[
+x = \frac{-b\pm\sqrt{\Delta}}{2a}
+\]
+Leia como \textbf{duas} fórmulas separadas:
+\[
+x_1 = \frac{-b+\sqrt{\Delta}}{2a} \qquad\qquad x_2 = \frac{-b-\sqrt{\Delta}}{2a}
+\]
+\end{definicao}
+
+\begin{atencao}{Os 3 erros mais comuns ao aplicar a fórmula}
+\begin{enumerate}[nosep]
+  \item \textbf{Esquecer o sinal de $-b$}: se $b=-5$, então $-b=5$ (não $-5$!).
+  \item \textbf{Dividir só uma parte por $2a$}: o denominador $2a$ divide
+  \textbf{todo} o numerador $-b\pm\sqrt\Delta$, não só a raiz.
+  \item \textbf{Errar o sinal dentro do $\Delta$}: $\Delta=b^2-4ac$; se $c$
+  for negativo, $-4ac$ vira positivo (menos vezes menos).
+\end{enumerate}
+\end{atencao}
+
+\section{O que o $\Delta$ revela — e a parábola por trás disso}
+
+\begin{dica}{Cada sinal de $\Delta$ é uma imagem diferente da parábola}
+Lembre (Tema 5): as raízes da equação são exatamente os pontos onde a
+parábola $y=ax^2+bx+c$ \textbf{cruza o eixo $x$}. $\Delta$ conta quantas
+vezes isso acontece.
+\end{dica}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=5.3cm,height=5cm, axis lines=middle, ticks=none,
+  xmin=-2,xmax=4,ymin=-2,ymax=4, samples=60,thick,
+  title={\small $\Delta>0$: 2 raízes}
+]
+\addplot[domain=-0.5:3.5,blue] {(x-1)*(x-2)};
+\addplot[mark=*,only marks,red] coordinates {(1,0)(2,0)};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+  width=5.3cm,height=5cm, axis lines=middle, ticks=none,
+  xmin=-2,xmax=4,ymin=-1,ymax=4, samples=60,thick,
+  title={\small $\Delta=0$: 1 raiz (dupla)}
+]
+\addplot[domain=-0.5:3.5,blue] {(x-1.5)*(x-1.5)};
+\addplot[mark=*,only marks,red] coordinates {(1.5,0)};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+  width=5.3cm,height=5cm, axis lines=middle, ticks=none,
+  xmin=-2,xmax=4,ymin=-1,ymax=5, samples=60,thick,
+  title={\small $\Delta<0$: nenhuma raiz real}
+]
+\addplot[domain=-0.8:3.8,blue] {(x-1.5)*(x-1.5)+1};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{definicao}{Resumo do que $\Delta$ diz}
+\begin{itemize}[nosep]
+  \item $\Delta>0$: a parábola cruza o eixo $x$ em \textbf{2 pontos} — duas raízes reais diferentes.
+  \item $\Delta=0$: a parábola apenas \textbf{toca} o eixo $x$ (o vértice está em cima dele) — uma raiz real ``dupla''.
+  \item $\Delta<0$: a parábola \textbf{nunca} toca o eixo $x$ — nenhuma raiz real.
+\end{itemize}
+\end{definicao}
+
+\begin{macete}{Sempre calcule $\Delta$ primeiro, antes de mais nada}
+Se $\Delta<0$ você já sabe, sem mais contas, que não existe solução real —
+economiza um tempo precioso de prova.
+\end{macete}
+
+\section{O vértice da parábola: quem é o ponto mais alto/baixo}
+
+\begin{definicao}{Coordenadas do vértice}
+\[
+x_v = -\frac{b}{2a} \qquad\qquad y_v = -\frac{\Delta}{4a}
+\]
+Note que $x_v=-\frac{b}{2a}$ é exatamente o ``meio do caminho'' entre
+$x_1$ e $x_2$ — a parábola é \textbf{simétrica} em torno da reta vertical
+$x=x_v$ (chamado eixo de simetria).
+\end{definicao}
+
+\begin{exemplo}{$f(x)=x^2-4x+3$}
+Raízes: $\Delta=16-12=4$, $x=\dfrac{4\pm2}{2} \Rightarrow x_1=3,\ x_2=1$.
+Vértice: $x_v=-\dfrac{-4}{2(1)}=2$ (exatamente a média de $1$ e $3$!),
+$y_v = f(2) = 4-8+3=-1$.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=9cm,height=6cm, axis lines=middle, xlabel=$x$,ylabel=$f(x)$,
+  xmin=-1,xmax=5,ymin=-2,ymax=4, xtick={1,2,3},ytick=\empty,samples=80,thick
+]
+\addplot[domain=-0.3:4.3,blue] {x^2-4*x+3};
+\addplot[mark=*,only marks,red] coordinates {(1,0)(3,0)};
+\addplot[mark=*,only marks,orange] coordinates {(2,-1)};
+\draw[dashed,gray] (axis cs:2,-2) -- (axis cs:2,4);
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\end{exemplo}
+
+\section{Relações de Girard — a soma e o produto das raízes (atalho poderoso)}
+
+\begin{definicao}{Fórmulas}
+\[
+x_1+x_2 = -\frac{b}{a} \qquad\qquad\qquad x_1\cdot x_2 = \frac{c}{a}
+\]
+\end{definicao}
+
+\begin{dica}{Para que serve isso na prática}
+\begin{itemize}[nosep]
+  \item \textbf{Conferir sua resposta}: depois de achar $x_1,x_2$ com
+  Bhaskara, some e multiplique — deve bater com $-b/a$ e $c/a$. Ótimo para
+  revisar sem refazer toda a conta.
+  \item \textbf{Achar raízes ``de cabeça''} quando $a=1$: procure dois
+  números cuja \textbf{soma} dá $-b$ e cujo \textbf{produto} dá $c$.
+\end{itemize}
+\end{dica}
+
+\begin{exemplo}{Achando raízes de cabeça: $x^2-7x+12=0$}
+Precisamos de dois números que somam $7$ e multiplicam $12$: são $3$ e
+$4$ ($3+4=7$, $3\cdot4=12$). Logo $x_1=3,\ x_2=4$ — sem precisar calcular
+$\Delta$! Confirme: $\Delta=49-48=1$, $x=\frac{7\pm1}{2}=4$ ou $3$.
+\checkmark
+\end{exemplo}
+
+\section{Casos especiais — atalhos mais rápidos que a fórmula completa}
+
+\begin{macete}{Equação incompleta: $b=0$ (falta o termo do meio)}
+\[
+ax^2+c=0 \ \Rightarrow\ x^2 = -\frac{c}{a} \ \Rightarrow\ x = \pm\sqrt{-\frac{c}{a}}
+\]
+\begin{exemplo}{$2x^2-8=0$}
+\[
+x^2=4 \ \Rightarrow\ x=\pm2
+\]
+\end{exemplo}
+\end{macete}
+
+\begin{macete}{Equação incompleta: $c=0$ (falta o termo independente)}
+\[
+ax^2+bx=0 \ \Rightarrow\ x(ax+b)=0 \ \Rightarrow\ x=0 \ \text{ ou } \ x=-\frac{b}{a}
+\]
+\begin{exemplo}{$3x^2-9x=0$}
+\[
+3x(x-3)=0 \ \Rightarrow\ x=0 \ \text{ ou } \ x=3
+\]
+\end{exemplo}
+\end{macete}
+
+\begin{atencao}{Nunca divida os dois lados por $x$ para ``simplificar'' quando $c=0$}
+Em $3x^2-9x=0$, se você dividir tudo por $x$ direto, obtém $3x-9=0
+\Rightarrow x=3$ — e \textbf{perde a raiz $x=0$}! Sempre fatore colocando
+$x$ em evidência em vez de dividir.
+\end{atencao}
+
+\section{Roteiro definitivo — nunca mais errar Bhaskara}
+
+\begin{macete}{Checklist de 5 passos}
+\begin{enumerate}[nosep]
+  \item Deixe a equação na forma $ax^2+bx+c=0$ (tudo de um lado, igualado a zero). Expanda parênteses se precisar.
+  \item Identifique $a$, $b$, $c$ \textbf{com o sinal correto}.
+  \item Calcule $\Delta=b^2-4ac$ separadamente, com cuidado no sinal de $-4ac$.
+  \item Se $\Delta<0$: pare, não há solução real. Se $\Delta\ge0$: continue.
+  \item Aplique $x=\dfrac{-b\pm\sqrt\Delta}{2a}$, dividindo \textbf{tudo} o numerador por $2a$. Confira com Girard ($x_1+x_2=-b/a$).
+\end{enumerate}
+\end{macete}
+
+\begin{exemplo}{Exemplo completo do roteiro: $2x^2+3=7x$}
+\textbf{Passo 1}: $2x^2-7x+3=0$.
+\textbf{Passo 2}: $a=2,\ b=-7,\ c=3$.
+\textbf{Passo 3}: $\Delta = (-7)^2-4(2)(3) = 49-24=25$.
+\textbf{Passo 4}: $\Delta=25>0$, duas raízes reais.
+\textbf{Passo 5}:
+\[
+x = \frac{-(-7)\pm\sqrt{25}}{2(2)} = \frac{7\pm5}{4} \ \Rightarrow\ x_1=3,\ x_2=\frac12
+\]
+\textbf{Conferindo com Girard}: $x_1+x_2 = 3+\frac12=\frac72 = -\frac{b}{a}=\frac{7}{2}$ \checkmark;
+\ $x_1\cdot x_2 = \frac32 = \frac{c}{a}=\frac32$ \checkmark.
+\end{exemplo}
+
+\section*{Resumo relâmpago}
+\begin{itemize}[nosep]
+  \item Bhaskara vem de completar quadrados — por isso sempre funciona.
+  \item $\Delta=b^2-4ac$: positivo (2 raízes), zero (1 raiz), negativo (nenhuma raiz real).
+  \item $x=\dfrac{-b\pm\sqrt\Delta}{2a}$: $2a$ divide \textbf{tudo}, e $-b$ inverte o sinal de $b$.
+  \item Vértice: $x_v=-\frac{b}{2a}$ (média das raízes).
+  \item Girard: $x_1+x_2=-b/a$, $x_1x_2=c/a$ — use para achar raízes de cabeça ou conferir a resposta.
+  \item $b=0$: isola $x^2$ e tira raiz. $c=0$: fatora $x$ em evidência (nunca divida por $x$).
+\end{itemize}
+
+\end{document}
