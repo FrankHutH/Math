@@ -1,0 +1,321 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,decorations.pathmorphing}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtcolorbox{definicao}[1]{colback=blue!5,colframe=blue!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{exemplo}[1]{colback=green!5,colframe=green!35!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{atencao}[1]{colback=red!5,colframe=red!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{dica}[1]{colback=yellow!12,colframe=orange!70!black,fonttitle=\bfseries,coltitle=black,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+
+\newcommand{\bolaFechada}[1]{\filldraw[blue] (#1,0) circle (2.2pt);}
+\newcommand{\bolaAberta}[1]{\draw[blue,fill=white,thick] (#1,0) circle (2.2pt);}
+
+\title{\vspace{-1.5cm}\textbf{Tema 6 — Funções Reais e Funções Compostas}\\[2pt]\large O tema que junta tudo o que você estudou antes}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section{O que é, de fato, uma função}
+
+\begin{definicao}{Função}
+Uma função $f:A\to B$ é uma regra que associa a \textbf{cada} elemento $x$
+de $A$ (domínio) \textbf{exatamente um} elemento $y=f(x)$ de $B$
+(contradomínio). As duas palavras-chave são: \textbf{cada} (nenhum $x$ fica
+sem correspondente) e \textbf{exatamente um} (nenhum $x$ pode ter dois
+resultados diferentes).
+\end{definicao}
+
+\subsection{O teste da reta vertical}
+
+\begin{dica}{Como saber, olhando o gráfico, se é função}
+Trace mentalmente retas \textbf{verticais}. Se alguma reta vertical cruza o
+gráfico em \textbf{mais de um ponto}, então algum $x$ tem dois valores de
+$y$ — não é função.
+\end{dica}
+
+\begin{center}
+\begin{tikzpicture}[scale=0.85]
+  % Gráfico I: parábola - É função
+  \begin{scope}
+    \draw[-{Stealth[length=2mm]}] (-1.3,0)--(1.6,0); \draw[-{Stealth[length=2mm]}] (0,-0.3)--(0,1.6);
+    \draw[domain=-1:1.2,samples=40,blue,thick] plot ({\x},{0.9*\x*\x-0.1});
+    \draw[dashed,red] (0.6,-0.3)--(0.6,1.6);
+    \node[below] at (0,-0.5) {\small I: FUNÇÃO};
+  \end{scope}
+  % Gráfico II: círculo - NÃO é função
+  \begin{scope}[xshift=4.2cm]
+    \draw[-{Stealth[length=2mm]}] (-1.3,0)--(1.6,0); \draw[-{Stealth[length=2mm]}] (0,-1)--(0,1.6);
+    \draw[blue,thick] (0,0.4) ellipse (1cm and 0.9cm);
+    \draw[dashed,red] (0,-1)--(0,1.6);
+    \node[below] at (0,-1.2) {\small II: NÃO é função};
+  \end{scope}
+  % Gráfico III: crescente simples - É função
+  \begin{scope}[xshift=8.4cm]
+    \draw[-{Stealth[length=2mm]}] (-1.3,0)--(1.6,0); \draw[-{Stealth[length=2mm]}] (0,-0.3)--(0,1.6);
+    \draw[domain=-1:1.3,samples=40,blue,thick] plot ({\x},{0.5*\x*\x*\x+0.6});
+    \draw[dashed,red] (0.5,-0.3)--(0.5,1.6);
+    \node[below] at (0,-0.5) {\small III: FUNÇÃO};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+No gráfico II, a reta vertical tracejada cruza a curva em \textbf{dois}
+pontos — para o mesmo $x$ existem dois valores de $y$. Não é função. Nos
+gráficos I e III, toda vertical cruza em \textbf{no máximo um} ponto.
+
+\section{Avaliando uma função num ponto (ou numa expressão)}
+
+\begin{dica}{A regra mais importante do tema}
+$f(\text{alguma coisa})$ significa: pegue a \textbf{fórmula} de $f$ e troque
+\textbf{toda ocorrência} da letra $x$ pelo que está dentro do parêntese —
+mesmo que seja uma expressão complicada, um número ou outra letra.
+\end{dica}
+
+\begin{exemplo}{$f(x)=2x^2+3x-4$. Calcule $f(0)$, $f(-x)$, $f(x+1)$, $2f(x)$}
+\begin{align*}
+f(0) &= 2(0)^2+3(0)-4 = -4\\
+f(-x) &= 2(-x)^2+3(-x)-4 = 2x^2-3x-4\\
+f(x+1) &= 2(x+1)^2+3(x+1)-4 = 2(x^2+2x+1)+3x+3-4 = 2x^2+7x+1\\
+2f(x) &= 2(2x^2+3x-4) = 4x^2+6x-8
+\end{align*}
+\end{exemplo}
+
+\begin{atencao}{$f(x+1)$ NÃO é $f(x)+1$!}
+São contas completamente diferentes. $f(x+1)$ troca o $x$ \textbf{dentro}
+da fórmula; $f(x)+1$ soma $1$ \textbf{depois} de calcular $f(x)$. No
+exemplo acima, $f(x)+1 = 2x^2+3x-3$, que é diferente de $f(x+1)$.
+\end{atencao}
+
+\section{Domínio: onde a função ``tem permissão'' de existir}
+
+\begin{dica}{As duas restrições de $\mathbb{R}$ que você já viu no Tema 1 e 3}
+\begin{enumerate}[nosep]
+  \item \textbf{Denominador $\neq 0$} (divisão por zero não existe).
+  \item \textbf{Radicando $\ge 0$ quando o índice da raiz é par} (raiz par de negativo não é real).
+\end{enumerate}
+Quando há mais de uma condição na mesma função, o domínio é a
+\textbf{interseção} (Tema 2) de todas elas — ambas precisam valer ao mesmo tempo.
+\end{dica}
+
+\begin{exemplo}{$f(x) = \dfrac{1}{x-2}$}
+Só a restrição do denominador: $x-2\neq0 \Rightarrow x\neq2$.
+\[
+D(f) = \mathbb{R}-\{2\} = \,]-\infty,2[\ \cup\ ]2,+\infty[
+\]
+\end{exemplo}
+
+\begin{exemplo}{$f(t)=\sqrt{t-2}$}
+Só a restrição da raiz (índice par): $t-2\ge0 \Rightarrow t\ge2$.
+\[
+D(f) = [2,+\infty[
+\]
+\end{exemplo}
+
+\begin{exemplo}{$f(x) = \dfrac{5}{x-2}+\sqrt{x-1}$ — combinando as duas restrições}
+Denominador: $x\neq2$. Raiz: $x-1\ge0 \Rightarrow x\ge1$. O domínio precisa
+respeitar \textbf{as duas ao mesmo tempo} — interseção:
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+  \draw[-{Stealth[length=2.5mm]}, thick] (-1,0) -- (5,0);
+  \foreach \x in {1,2} \draw (\x,0.06)--(\x,-0.06) node[below]{\small \x};
+  \draw[ultra thick,orange] (1,0.4)--(4.8,0.4); \bolaFechada{1}
+  \node[left,orange] at (-1.1,0.4){\small $x\ge1$};
+  \draw[ultra thick,blue] (-0.8,-0.4)--(4.8,-0.4); \draw[blue,fill=white,thick] (2,-0.4) circle(2.2pt);
+  \node[left,blue] at (-1.1,-0.4){\small $x\neq2$};
+  \draw[ultra thick,red] (1,0)--(4.8,0); \bolaFechada{1} \draw[red,fill=white,thick] (2,0) circle(2.2pt);
+  \node[left,red] at (-1.1,0){\small $D(f)$};
+\end{tikzpicture}
+\end{center}
+\[
+D(f) = [1,2[\ \cup\ ]2,+\infty[
+\]
+\end{exemplo}
+
+\begin{exemplo}{$f(x)=\sqrt{x-8}+\sqrt{8-x}$ — quando as duas condições ``espremem'' para um só ponto}
+Precisamos de $x-8\ge0$ (isto é $x\ge8$) \textbf{e} $8-x\ge0$ (isto é
+$x\le8$) ao mesmo tempo. A única interseção possível é $x=8$:
+\[
+D(f)=\{8\}
+\]
+\end{exemplo}
+
+\begin{exemplo}{$f(x)=\dfrac{1}{\sqrt{2x-4}}$ — raiz par no denominador}
+Cuidado: aqui a raiz está \textbf{embaixo}, então nem sequer pode ser
+zero (denominador $\neq0$), a condição fica \textbf{estrita}: $2x-4>0
+\Rightarrow x>2$.
+\[
+D(f) = \,]2,+\infty[
+\]
+\end{exemplo}
+
+\section{Lendo informações direto de um gráfico}
+
+\begin{dica}{Vocabulário essencial}
+\begin{itemize}[nosep]
+  \item \textbf{Domínio}: projete o gráfico no eixo $x$ (quais $x$ têm ponto desenhado).
+  \item \textbf{Imagem}: projete o gráfico no eixo $y$ (quais $y$ são atingidos).
+  \item \textbf{Crescente}: andando da esquerda para a direita, o gráfico \textbf{sobe}.
+  \item \textbf{Decrescente}: andando da esquerda para a direita, o gráfico \textbf{desce}.
+  \item \textbf{Zeros (raízes)}: pontos onde o gráfico \textbf{cruza o eixo $x$} (onde $f(x)=0$).
+\end{itemize}
+\end{dica}
+
+\begin{exemplo}{Lendo um gráfico em ``V invertido''}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=8cm,height=6cm,
+  axis lines=middle,
+  xlabel=$x$, ylabel=$f(x)$,
+  xmin=-4.5,xmax=6.5, ymin=-4.5,ymax=4.5,
+  xtick={-4,-2,0,2,4,6}, ytick={-4,-2,0,2,4},
+  thick
+]
+\addplot[blue,thick,mark=*] coordinates {(-4,-4)(0,3)(3,1)(6,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+\textbf{Domínio}: $[-4,6]$ (o desenho começa em $-4$ e termina em $6$).
+\textbf{Imagem}: $[-4,3]$ (o ponto mais baixo é $-4$, o mais alto é $3$).
+\textbf{Crescente}: em $[-4,0]$ (sobe até o pico). \textbf{Decrescente}:
+em $[0,6]$ (desce depois do pico). \textbf{Zero}: $x=6$ (único ponto em
+que toca o eixo $x$).
+\end{exemplo}
+
+\section{Famílias de funções que você precisa reconhecer de cara}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=7.3cm,height=6cm, axis lines=middle, xlabel=$x$,ylabel=$y$,
+  xmin=-3,xmax=3,ymin=-3,ymax=5, samples=100,thick,
+  title={Afim: $f(x)=2x-1$}
+]
+\addplot[domain=-2:3,blue] {2*x-1};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+  width=7.3cm,height=6cm, axis lines=middle, xlabel=$x$,ylabel=$y$,
+  xmin=-3,xmax=3,ymin=-1,ymax=6, samples=100,thick,
+  title={Quadrática: $f(x)=x^2-1$}
+]
+\addplot[domain=-2.6:2.6,blue] {x^2-1};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=7.3cm,height=6cm, axis lines=middle, xlabel=$x$,ylabel=$y$,
+  xmin=-3,xmax=3,ymin=-4,ymax=4, samples=100,thick,
+  title={Módulo: $f(x)=|x|-1$}
+]
+\addplot[domain=-3:3,blue] {abs(x)-1};
+\end{axis}
+\end{tikzpicture}
+\hfill
+\begin{tikzpicture}
+\begin{axis}[
+  width=7.3cm,height=6cm, axis lines=middle, xlabel=$x$,ylabel=$y$,
+  xmin=-0.5,xmax=5,ymin=-2,ymax=3, samples=100,thick,
+  title={Raiz: $f(x)=\sqrt{x}$}
+]
+\addplot[domain=0:4.6,blue] {sqrt(x)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section{Funções compostas — o grande final}
+
+\begin{definicao}{Composição de funções}
+Dadas $f$ e $g$, a função composta $(f\circ g)(x)$ (lê-se ``$f$ bola $g$
+de $x$'' ou ``$f$ composta com $g$'') é definida por:
+\[
+(f\circ g)(x) = f\bigl(g(x)\bigr)
+\]
+Ou seja: \textbf{primeiro} calcule $g(x)$, e depois \textbf{jogue esse
+resultado dentro de} $f$.
+\end{definicao}
+
+\begin{center}
+\begin{tikzpicture}[node distance=2.2cm, >={Stealth[length=3mm]}]
+  \node (x) [draw,circle,fill=blue!10] {$x$};
+  \node (gx) [draw,circle,fill=green!15, right=of x] {$g(x)$};
+  \node (fgx) [draw,circle,fill=orange!20, right=of gx] {$f(g(x))$};
+  \draw[->,thick] (x) -- node[above]{\small aplica $g$} (gx);
+  \draw[->,thick] (gx) -- node[above]{\small aplica $f$} (fgx);
+  \draw[->,thick,dashed,bend angle=25,bend left] (x) to node[below]{\small $f\circ g$} (fgx);
+\end{tikzpicture}
+\end{center}
+
+\begin{exemplo}{$f(x)=x^2+1$, $g(x)=2x-3$. Calcule $(f\circ g)(x)$ e $(g\circ f)(x)$}
+\textbf{Passo a passo de $(f\circ g)(x)=f(g(x))$}: substitua, dentro de
+$f$, o $x$ por \textbf{toda a fórmula} de $g(x)$:
+\begin{align*}
+(f\circ g)(x) = f(g(x)) = f(2x-3) &= (2x-3)^2+1\\
+&= 4x^2-12x+9+1 = 4x^2-12x+10
+\end{align*}
+Agora na ordem inversa — substitua, dentro de $g$, o $x$ por $f(x)$:
+\begin{align*}
+(g\circ f)(x) = g(f(x)) = g(x^2+1) &= 2(x^2+1)-3\\
+&= 2x^2+2-3 = 2x^2-1
+\end{align*}
+\end{exemplo}
+
+\begin{atencao}{$f\circ g \neq g\circ f$ em geral!}
+Veja no exemplo acima: $4x^2-12x+10$ é bem diferente de $2x^2-1$. A ordem
+da composição \textbf{importa} — é como vestir meia e depois sapato
+(funciona), \emph{versus} sapato e depois meia (não funciona igual).
+Sempre observe qual função está mais ``de fora'' — essa é aplicada
+\textbf{por último}.
+\end{atencao}
+
+\begin{exemplo}{Calculando um valor numérico de uma composta}
+Com $f(x)=x^2+1$ e $g(x)=2x-3$, calcule $(f\circ g)(2)$.
+\textbf{Método direto} (mais seguro): primeiro $g(2)=2(2)-3=1$. Depois
+$f(g(2))=f(1)=1^2+1=2$.
+\[
+(f\circ g)(2) = 2
+\]
+Confira com a fórmula geral achada acima: $4(2)^2-12(2)+10 = 16-24+10=2$.
+\checkmark\ Os dois caminhos batem.
+\end{exemplo}
+
+\begin{dica}{Domínio de uma composta}
+$D(f\circ g)$ é formado pelos $x$ que (1) estão no domínio de $g$ \textbf{e}
+(2) cujo resultado $g(x)$ cai dentro do domínio de $f$. Na prática, sempre
+monte a fórmula de $f(g(x))$ primeiro e depois aplique as regras normais de
+domínio (Tema 6, seção 3) nessa fórmula final — geralmente resolve o
+problema sem precisar pensar nas duas condições separadamente, a não ser
+que a questão peça explicitamente.
+\end{dica}
+
+\section*{Resumo relâmpago}
+\begin{itemize}[nosep]
+  \item Função: cada $x$ tem \textbf{um só} $y$. Teste da reta vertical confirma isso no gráfico.
+  \item $f(\text{expressão})$: substitua \textbf{todo} $x$ da fórmula pela expressão.
+  \item Domínio: denominador $\neq0$, raiz de índice par $\ge0$; combine com interseção.
+  \item Gráfico: domínio = sombra no eixo $x$; imagem = sombra no eixo $y$; leia crescimento e zeros olhando a curva.
+  \item $(f\circ g)(x)=f(g(x))$: calcule $g$ primeiro, depois jogue o resultado em $f$. Ordem importa!
+\end{itemize}
+
+\end{document}

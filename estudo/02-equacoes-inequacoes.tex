@@ -1,0 +1,246 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning,decorations.pathmorphing}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtcolorbox{definicao}[1]{colback=blue!5,colframe=blue!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{exemplo}[1]{colback=green!5,colframe=green!35!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{atencao}[1]{colback=red!5,colframe=red!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{dica}[1]{colback=yellow!12,colframe=orange!70!black,fonttitle=\bfseries,coltitle=black,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+
+\newcommand{\bolaFechada}[1]{\filldraw[blue] (#1,0) circle (2.2pt);}
+\newcommand{\bolaAberta}[1]{\draw[blue,fill=white,thick] (#1,0) circle (2.2pt);}
+
+\title{\vspace{-1.5cm}\textbf{Tema 5 — Equações e Inequações}\\[2pt]\large Do 1º grau ao quadro de sinais}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section*{Equação $\times$ inequação: qual a diferença?}
+Uma \textbf{equação} é uma igualdade ($=$) — a solução é (geralmente) um
+número ou um conjunto finito de números. Uma \textbf{inequação} usa $<,\le,>,\ge$
+— a solução é (quase sempre) um \textbf{intervalo} inteiro de números (veja
+Tema 2). A técnica de resolver é parecida, mas há uma regra extra crucial
+nas inequações (veja a seção de sinal negativo mais adiante).
+
+\section{Equações do 1º grau}
+
+\begin{definicao}{Ideia}
+``Isolar $x$'': o que está somando de um lado, passa subtraindo do outro; o
+que está multiplicando, passa dividindo — sempre fazendo a \textbf{mesma
+operação nos dois lados} da igualdade (para não quebrar o equilíbrio).
+\end{definicao}
+
+\begin{exemplo}{$2x-3=4x-5$}
+\begin{align*}
+2x - 4x &= -5+3 &&\text{(termos com $x$ de um lado, números do outro)}\\
+-2x &= -2\\
+x &= 1
+\end{align*}
+Verificação: $2(1)-3 = -1$ e $4(1)-5=-1$. \checkmark
+\end{exemplo}
+
+\begin{exemplo}{Com frações: $\dfrac{2x-3}{4}+5=3x$}
+Multiplique \textbf{tudo} (cada termo) pelo denominador comum para sumir com a fração:
+\begin{align*}
+4\cdot\left(\frac{2x-3}{4}\right) + 4\cdot5 &= 4\cdot3x\\
+2x-3+20 &= 12x\\
+2x-12x &= -20+3\\
+-10x&=-17 \ \Rightarrow\ x=\frac{17}{10}
+\end{align*}
+\end{exemplo}
+
+\section{Equações do 2º grau}
+
+\begin{definicao}{Forma geral e fórmula de Bhaskara}
+\[
+ax^2+bx+c=0 \ (a\neq0) \qquad\qquad \Delta = b^2-4ac \qquad\qquad x = \frac{-b\pm\sqrt{\Delta}}{2a}
+\]
+\end{definicao}
+
+\begin{dica}{O que o $\Delta$ (delta) te conta antes de calcular tudo}
+\begin{itemize}[nosep]
+  \item $\Delta>0$: duas raízes reais diferentes.
+  \item $\Delta=0$: uma raiz real (``dupla'').
+  \item $\Delta<0$: nenhuma raiz real.
+\end{itemize}
+Sempre calcule $\Delta$ primeiro — economiza trabalho se der negativo.
+\end{dica}
+
+\begin{exemplo}{$2x^2-3x+1=0$}
+\[
+\Delta = (-3)^2-4(2)(1) = 9-8=1
+\]
+\[
+x = \frac{3\pm\sqrt1}{4} = \frac{3\pm1}{4} \ \Rightarrow\ x_1=1,\ x_2=\frac12
+\]
+\end{exemplo}
+
+\begin{exemplo}{Arrumando antes de aplicar Bhaskara: $3x+4=x^2$}
+Primeiro, jogue tudo para um lado, igualando a zero:
+\[
+0 = x^2-3x-4 \qquad \Delta=9+16=25 \qquad x=\frac{3\pm5}{2} \ \Rightarrow\ x_1=4,\ x_2=-1
+\]
+\end{exemplo}
+
+\begin{atencao}{Cuidado com equações ``disfarçadas''}
+$2x^2-7x+9 = (x-3)(x+1)+3x$ não parece do 2º grau clássico. Primeiro
+\textbf{expanda tudo} e simplifique até chegar em $ax^2+bx+c=0$ antes de
+aplicar qualquer fórmula.
+\end{atencao}
+
+\section{Inequações do 1º grau}
+
+\begin{atencao}{A ÚNICA regra que muda em relação à equação}
+Ao \textbf{multiplicar ou dividir os dois lados por um número negativo},
+o sentido da desigualdade \textbf{inverte}.
+\[
+-2x > 6 \quad\xrightarrow{\div(-2)}\quad x < -3 \qquad(\text{o } > \text{virou } <)
+\]
+Esse é o erro número 1 em provas de inequação. Sempre que multiplicar por
+negativo, pare e inverta o símbolo.
+\end{atencao}
+
+\begin{exemplo}{$5(x+3)-2(x+1)\le 2x+3$}
+\begin{align*}
+5x+15-2x-2 &\le 2x+3\\
+3x+13 &\le 2x+3\\
+3x-2x &\le 3-13\\
+x &\le -10
+\end{align*}
+Solução: $\,]-\infty,-10]$.
+\end{exemplo}
+
+\begin{exemplo}{Com fração: $\dfrac{x-1}{2}-\dfrac{x-3}{4}\ge1$}
+Multiplique tudo por $4$ (mmc):
+\[
+2(x-1)-(x-3) \ge 4 \ \Rightarrow\ 2x-2-x+3\ge4 \ \Rightarrow\ x+1\ge4 \ \Rightarrow\ x\ge3
+\]
+Solução: $[3,+\infty[$.
+\end{exemplo}
+
+\section{Inequações do 2º grau — o quadro de sinais}
+
+Aqui é onde \textbf{entender o gráfico} faz toda a diferença: o sinal de
+$f(x)=ax^2+bx+c$ depende de onde a parábola está \textbf{acima} (positivo)
+ou \textbf{abaixo} (negativo) do eixo $x$.
+
+\begin{dica}{Roteiro de 3 passos}
+\begin{enumerate}[nosep]
+  \item Ache as raízes (onde a parábola cruza o eixo $x$), com Bhaskara.
+  \item Descubra se a parábola abre para cima ($a>0$) ou para baixo ($a<0$).
+  \item Leia no gráfico: entre as raízes o sinal é oposto ao de fora
+        (se $a>0$) — ou o contrário (se $a<0$).
+\end{enumerate}
+\end{dica}
+
+\begin{exemplo}{$x^2-3x+2>0$}
+Raízes: $\Delta=1$, $x=1$ e $x=2$. Como $a=1>0$, a parábola abre para cima.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=9cm,height=6cm,
+  axis lines=middle,
+  xlabel=$x$, ylabel=$f(x)$,
+  xmin=-1,xmax=4, ymin=-1.5,ymax=3,
+  xtick={1,2}, ytick=\empty,
+  samples=100,thick
+]
+\addplot[domain=-1:4,blue] {x^2-3*x+2};
+\addplot[mark=*,only marks,red] coordinates {(1,0)(2,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Fora do intervalo das raízes a parábola está \textbf{acima} do eixo
+(positiva); entre as raízes está \textbf{abaixo} (negativa). Como
+queremos $f(x)>0$:
+\[
+S=\{x\in\mathbb{R}\mid x<1 \text{ ou } x>2\}
+\]
+\end{exemplo}
+
+\begin{exemplo}{$-x^2+x+6>0$ (parábola para baixo)}
+Raízes: $\Delta = 1+24=25$, $x=\dfrac{-1\pm5}{-2} \Rightarrow x_1=-2,\ x_2=3$.
+Como $a=-1<0$, a parábola abre para \textbf{baixo}.
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=9cm,height=6cm,
+  axis lines=middle,
+  xlabel=$x$, ylabel=$f(x)$,
+  xmin=-4,xmax=5, ymin=-6,ymax=7,
+  xtick={-2,3}, ytick=\empty,
+  samples=100,thick
+]
+\addplot[domain=-4:5,blue] {-x^2+x+6};
+\addplot[mark=*,only marks,red] coordinates {(-2,0)(3,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+Agora é o contrário: \textbf{entre} as raízes a parábola está acima do
+eixo (positiva). Queremos $f(x)>0$:
+\[
+S = \{x\in\mathbb{R}\mid -2<x<3\}
+\]
+\end{exemplo}
+
+\begin{dica}{Memorize com uma imagem, não com uma regra decorada}
+``Sorriso'' ($a>0$): positivo \textbf{fora} das raízes, negativo
+\textbf{entre} elas. ``Carranca'' ($a<0$): positivo \textbf{entre} as
+raízes, negativo \textbf{fora}. Sempre desenhe a parabolazinha na prova —
+2 segundos de desenho evitam erro de sinal.
+\end{dica}
+
+\section{Inequação racional (fração com $x$) — quadro de sinais com 2 fatores}
+
+\begin{exemplo}{Ideia geral: $\dfrac{x-2}{x+1}\ge0$}
+Marque na reta as raízes do numerador ($x=2$) e do denominador ($x=-1$,
+que \textbf{nunca} pode ser incluído — divisão por zero). Estude o sinal de
+cada fator separadamente e depois combine (regra de sinais da
+multiplicação/divisão):
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[-{Stealth[length=2.5mm]}, thick] (-3,0) -- (4,0);
+  \foreach \x in {-1,2} \draw (\x,0.06)--(\x,-0.06) node[below]{\small \x};
+  \node at (-2,0.9) {\small $x-2$:};
+  \draw[red] (-3,0.6)--(2,0.6) node[midway,above]{\small $-$};
+  \draw[blue] (2,0.6)--(4,0.6) node[midway,above]{\small $+$};
+  \node at (-2,-0.9) {\small $x+1$:};
+  \draw[red] (-3,-0.6)--(-1,-0.6) node[midway,above]{\small $-$};
+  \draw[blue] (-1,-0.6)--(4,-0.6) node[midway,above]{\small $+$};
+\end{tikzpicture}
+\end{center}
+Multiplicando os sinais em cada faixa: $(-\infty,-1)$: $(-)/(-) = +$;
+$(-1,2)$: $(-)/(+) = -$; $(2,+\infty)$: $(+)/(+)=+$. Queremos $\ge0$
+(inclui zero do numerador, exclui zero do denominador):
+\[
+S = \,]-\infty,-1[\ \cup\ [2,+\infty[
+\]
+\end{exemplo}
+
+\section*{Resumo relâmpago}
+\begin{itemize}[nosep]
+  \item Equação do 1º grau: isole $x$ fazendo a mesma operação nos dois lados.
+  \item Equação do 2º grau: iguale a zero, calcule $\Delta$, use Bhaskara.
+  \item Inequação: mesmas regras da equação, \textbf{exceto} — multiplicar/dividir por negativo inverte o sinal.
+  \item Inequação do 2º grau: desenhe a parábola (sorriso ou carranca), marque as raízes, leia o sinal.
+  \item Inequação racional: quadro de sinais fator por fator, denominador nunca pode zerar.
+\end{itemize}
+
+\end{document}
