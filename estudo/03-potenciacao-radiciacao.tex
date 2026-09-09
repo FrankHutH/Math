@@ -1,0 +1,239 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtcolorbox{definicao}[1]{colback=blue!5,colframe=blue!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{exemplo}[1]{colback=green!5,colframe=green!35!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{atencao}[1]{colback=red!5,colframe=red!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{dica}[1]{colback=yellow!12,colframe=orange!70!black,fonttitle=\bfseries,coltitle=black,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+
+\title{\vspace{-1.5cm}\textbf{Tema 3 — Potenciação e Radiciação}\\[2pt]\large Regras que você usa em quase toda conta da prova}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section*{A ideia central}
+Potência é \textbf{multiplicação repetida}: $a^n = \underbrace{a\cdot a\cdots a}_{n\text{ vezes}}$.
+Raiz é a operação \textbf{inversa}: ``desfaz'' a potência.
+\[
+\sqrt[n]{a} = b \quad\Longleftrightarrow\quad b^n = a
+\]
+Tudo que vem a seguir são consequências lógicas dessas duas frases — não
+decore, \textbf{deduza}.
+
+\section{Potenciação}
+
+\subsection{Expoentes inteiros}
+
+\begin{definicao}{Expoente natural, zero e negativo}
+\begin{align*}
+a^n &= \underbrace{a \cdot a \cdots a}_{n} \quad (n \in \mathbb{N}^*)\\[4pt]
+a^0 &= 1 \quad (a \neq 0)\\[4pt]
+a^{-n} &= \frac{1}{a^n} \quad (a \neq 0)
+\end{align*}
+\end{definicao}
+
+\begin{dica}{Por que $a^0=1$ e não $0$?}
+Pense na sequência $a^3, a^2, a^1, a^0, a^{-1}$. Cada vez que o expoente cai
+$1$, você \textbf{divide} por $a$:
+\[
+a^3 \xrightarrow{\div a} a^2 \xrightarrow{\div a} a^1 \xrightarrow{\div a} a^0 \xrightarrow{\div a} a^{-1}
+\]
+Com $a=2$: $8 \to 4 \to 2 \to 1 \to \tfrac12$. Para o padrão continuar, $a^0$
+\textbf{tem} que ser $1$, e $a^{-1}$ \textbf{tem} que ser $\tfrac1a$. O
+expoente negativo não é ``número negativo'', é apenas ``inverte a fração''.
+\end{dica}
+
+\begin{exemplo}{Aplicando direto}
+\begin{align*}
+3^3 &= 27\\
+\left(\tfrac{3}{2}\right)^3 &= \tfrac{27}{8}\\
+(-4)^4 &= 256 \quad\text{(expoente par: sinal negativo desaparece)}\\
+\frac{1}{4^{-3}} &= 4^3 = 64 \quad\text{(inverter o inverso volta ao original)}\\
+\frac{2^{-3}}{2^{-2}} &= 2^{-3-(-2)} = 2^{-1} = \tfrac12
+\end{align*}
+\end{exemplo}
+
+\begin{atencao}{Cuidado com o sinal}
+$(-4)^4 = 256$ (positivo), mas $-4^4 = -256$ (negativo)! O parêntese muda
+tudo: sem parêntese, o sinal de menos \textbf{não} é elevado à potência.
+Isso aparece na lista: $-2^2-(-5)^0 = -4 - 1 = -5$.
+\end{atencao}
+
+\subsection{As 5 propriedades operatórias}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Propriedade} & \textbf{Por que funciona (contando fatores)} \\
+\midrule
+$a^m \cdot a^n = a^{m+n}$ & $(a\cdots a)_{m} \cdot (a \cdots a)_n$ tem $m+n$ fatores \\
+$\dfrac{a^m}{a^n} = a^{m-n}$ & cada $a$ de baixo cancela um de cima \\
+$(a^m)^n = a^{m\cdot n}$ & $n$ grupos de $m$ fatores $= m\cdot n$ fatores \\
+$(a\cdot b)^n = a^n \cdot b^n$ & distribui o expoente no produto \\
+$\left(\dfrac{a}{b}\right)^n = \dfrac{a^n}{b^n}$ & distribui o expoente na fração \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{exemplo}{Usando as propriedades (estilo da lista)}
+\[
+\left(\frac35\right)^5\cdot\left(\frac35\right)^{-6}\cdot\left(\frac35\right)^3
+= \left(\frac35\right)^{5-6+3} = \left(\frac35\right)^{2} = \frac{9}{25}
+\]
+\[
+\frac{7^3\cdot 7^4}{7^6} = \frac{7^{7}}{7^{6}} = 7^{1} = 7
+\]
+\[
+2^3+\left(\frac12\right)^{-2} = 8 + 2^2 = 8+4=12
+\]
+\end{exemplo}
+
+\begin{atencao}{O erro mais comum da prova}
+$a^m \cdot a^n \neq a^{m\cdot n}$! Multiplicar potências de mesma base
+\textbf{soma} os expoentes, não multiplica. Só se multiplica o expoente
+quando é ``potência de potência'': $(a^m)^n = a^{mn}$.
+\end{atencao}
+
+\section{Radiciação}
+
+\begin{definicao}{Raiz $n$-ésima}
+\[
+\sqrt[n]{a} = b \iff b^n = a, \qquad (\text{se } n \text{ par}, \text{ exige-se } a\ge 0 \text{ e } b\ge 0)
+\]
+Quando $n=2$ não escrevemos o índice: $\sqrt{a}=\sqrt[2]{a}$.
+\end{definicao}
+
+\begin{atencao}{Por que índice par exige radicando $\ge 0$?}
+Em $\mathbb{R}$, todo número elevado a um expoente \textbf{par} é
+$\ge 0$ (positivo $\times$ positivo, ou negativo $\times$ negativo, sempre
+dá positivo). Logo não existe número real $b$ com $b^2 = -4$: não há raiz
+quadrada real de número negativo. Já para índice \textbf{ímpar}
+($\sqrt[3]{-8}=-2$, pois $(-2)^3=-8$) não há esse problema.
+\end{atencao}
+
+\subsection{Raiz como expoente fracionário — a ponte mais importante do tema}
+
+\begin{definicao}{Convertendo raiz em potência}
+\[
+\sqrt[n]{a^m} = a^{\frac{m}{n}}
+\]
+Essa igualdade permite tratar \textbf{toda} raiz com as 5 propriedades de
+potência que você já sabe — não precisa decorar regras novas de raiz.
+\end{definicao}
+
+\begin{exemplo}{Simplificando com expoente fracionário}
+\[
+\frac{x^{\frac13}\cdot x^{\frac14}}{x^{\frac34}} = x^{\frac13+\frac14-\frac34} = x^{\frac{4+3-9}{12}} = x^{-\frac{2}{12}} = x^{-\frac16} = \frac{1}{\sqrt[6]{x}}
+\]
+\[
+\sqrt[3]{y^{12}} = y^{\frac{12}{3}} = y^{4}
+\]
+\[
+\sqrt[3]{x^5 y^6} = (x^5y^6)^{\frac13} = x^{\frac53}y^{2} = x^{\frac53}y^2
+\]
+\end{exemplo}
+
+\subsection{Simplificando radicais (fatoração dentro da raiz)}
+
+\begin{exemplo}{$\sqrt{108x^8z^{18}}$}
+Fatore o número e agrupe os expoentes em múltiplos do índice ($2$):
+\[
+108 = 4\cdot27 = 2^2\cdot 3^3
+\]
+\[
+\sqrt{2^2\cdot3^3\cdot x^8 \cdot z^{18}} = \sqrt{2^2\cdot3^2\cdot3\cdot x^8\cdot z^{18}} = 2\cdot3\cdot x^4\cdot z^9\cdot\sqrt{3} = 6\sqrt3\,x^4z^9
+\]
+\textbf{Ideia}: tudo que tem expoente múltiplo do índice ``sai'' da raiz;
+o que sobra fica dentro.
+\end{exemplo}
+
+\subsection{Racionalização — tirando raiz do denominador}
+
+\begin{dica}{Por que racionalizar?}
+Por convenção (e para facilitar comparação/soma de frações), não deixamos
+raiz no denominador. A ideia sempre é: multiplique em cima e embaixo por
+algo que \textbf{complete} a raiz do denominador para virar um número
+inteiro, sem alterar o valor da fração (multiplicar por $\frac{k}{k}=1$).
+\end{dica}
+
+\begin{exemplo}{Caso 1 — denominador com raiz quadrada simples}
+\[
+\frac{6}{\sqrt2} = \frac{6}{\sqrt2}\cdot\frac{\sqrt2}{\sqrt2} = \frac{6\sqrt2}{2} = 3\sqrt2
+\]
+\end{exemplo}
+
+\begin{exemplo}{Caso 2 — denominador com raiz de índice $n>2$}
+Para $\sqrt[3]{10}$, falta ``completar'' o expoente de $10$ até $3$ (ele
+tem expoente $1$, falta $2$):
+\[
+\frac{1}{\sqrt[3]{10}} = \frac{1}{10^{1/3}}\cdot\frac{10^{2/3}}{10^{2/3}} = \frac{10^{2/3}}{10} = \frac{\sqrt[3]{100}}{10}
+\]
+\end{exemplo}
+
+\begin{exemplo}{Caso 3 — denominador com soma/diferença de raízes (usa produto notável)}
+Multiplique pelo \textbf{conjugado} (mesma expressão, sinal trocado), pois
+$(a-b)(a+b)=a^2-b^2$ elimina as raízes:
+\[
+\frac{2}{\sqrt5-\sqrt3}\cdot\frac{\sqrt5+\sqrt3}{\sqrt5+\sqrt3} = \frac{2(\sqrt5+\sqrt3)}{5-3} = \frac{2(\sqrt5+\sqrt3)}{2} = \sqrt5+\sqrt3
+\]
+\[
+\frac{9}{4+\sqrt5}\cdot\frac{4-\sqrt5}{4-\sqrt5} = \frac{9(4-\sqrt5)}{16-5} = \frac{9(4-\sqrt5)}{11} = \frac{36-9\sqrt5}{11}
+\]
+\end{exemplo}
+
+\section{Enxergando raiz e potência como funções inversas}
+
+O gráfico deixa claro por que ``raiz desfaz potência'': as curvas
+$y=x^2$ (para $x\ge0$) e $y=\sqrt{x}$ são \textbf{reflexos} uma da outra em
+torno da reta $y=x$.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=9cm, height=9cm,
+  xmin=-0.3, xmax=4.5, ymin=-0.3, ymax=4.5,
+  axis lines=middle,
+  xlabel=$x$, ylabel=$y$,
+  samples=100, thick,
+  legend pos=north west,
+  legend style={font=\small}
+]
+\addplot[domain=0:2.12,blue] {x^2};
+\addlegendentry{$y=x^2\ (x\ge0)$}
+\addplot[domain=0:4.5,red] {sqrt(x)};
+\addlegendentry{$y=\sqrt{x}$}
+\addplot[domain=0:4.3,dashed,gray] {x};
+\addlegendentry{$y=x$ (espelho)}
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\section*{Resumo relâmpago}
+\begin{itemize}[nosep]
+  \item $a^{-n} = \dfrac{1}{a^n}$; \quad $a^0=1$.
+  \item Multiplicar mesma base: \textbf{soma} expoente. Potência de potência: \textbf{multiplica} expoente.
+  \item $\sqrt[n]{a^m} = a^{m/n}$ — converta raiz em potência sempre que travar.
+  \item Índice par $\Rightarrow$ radicando $\ge 0$.
+  \item Racionalizar: multiplique por $1$ disfarçado (a própria raiz, o que falta para o índice, ou o conjugado).
+\end{itemize}
+
+\end{document}

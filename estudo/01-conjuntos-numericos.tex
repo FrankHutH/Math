@@ -1,0 +1,198 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazilian]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue!50!black,urlcolor=blue!50!black}
+
+\newtcolorbox{definicao}[1]{colback=blue!5,colframe=blue!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{exemplo}[1]{colback=green!5,colframe=green!35!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{atencao}[1]{colback=red!5,colframe=red!55!black,fonttitle=\bfseries,coltitle=white,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+\newtcolorbox{dica}[1]{colback=yellow!12,colframe=orange!70!black,fonttitle=\bfseries,coltitle=black,title={#1},breakable,boxrule=0.8pt,arc=2mm}
+
+\title{\vspace{-1.5cm}\textbf{Tema 1 — Conjuntos Numéricos}\\[2pt]\large A base de tudo: onde ``moram'' os números}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\section*{Por que isso importa?}
+Antes de resolver qualquer equação, inequação ou função, você precisa saber
+\emph{em qual conjunto} o número que você está manipulando vive. Isso decide,
+por exemplo, se $\sqrt{-4}$ tem solução, se $\dfrac{1}{3}$ pode ser escrito
+como decimal exato, ou por que $\pi$ nunca termina. É a base de tudo o resto
+da prova.
+
+\section{Os cinco conjuntos numéricos}
+
+\begin{definicao}{Naturais ($\mathbb{N}$)}
+São os números usados para contar, começando do zero (convenção mais comum):
+\[
+\mathbb{N} = \{0, 1, 2, 3, 4, 5, \dots\}
+\]
+Quando queremos excluir o zero, escrevemos $\mathbb{N}^{*} = \{1,2,3,\dots\}$.
+\end{definicao}
+
+\begin{definicao}{Inteiros ($\mathbb{Z}$)}
+São os naturais \textbf{mais} os seus opostos negativos. Surgem, por exemplo,
+quando você faz $3 - 5$ e o resultado não é natural.
+\[
+\mathbb{Z} = \{\dots, -3, -2, -1, 0, 1, 2, 3, \dots\}
+\]
+\end{definicao}
+
+\begin{definicao}{Racionais ($\mathbb{Q}$)}
+São todos os números que podem ser escritos como uma \textbf{fração de dois
+inteiros} $\dfrac{p}{q}$, com $q \neq 0$:
+\[
+\mathbb{Q} = \left\{ \dfrac{p}{q} \;\middle|\; p \in \mathbb{Z},\ q \in \mathbb{Z}^{*} \right\}
+\]
+Isso inclui:
+\begin{itemize}[nosep]
+  \item todos os inteiros ($5 = \frac{5}{1}$);
+  \item decimais exatos ($0{,}75 = \frac{3}{4}$);
+  \item \textbf{dízimas periódicas} ($0{,}333\ldots = \frac{1}{3}$).
+\end{itemize}
+\end{definicao}
+
+\begin{exemplo}{Transformando dízima periódica em fração (técnica rápida)}
+Quer escrever $0{,}666\ldots$ como fração? Faça $x = 0{,}666\ldots$.
+Multiplique por $10$ (um zero para cada casa que se repete):
+\[
+10x = 6{,}666\ldots
+\]
+Subtraia a primeira equação da segunda — as dízimas se cancelam:
+\[
+10x - x = 6{,}666\ldots - 0{,}666\ldots \;\Rightarrow\; 9x = 6 \;\Rightarrow\; x = \frac{6}{9} = \frac{2}{3}.
+\]
+Esse é o motivo de dízima periódica ser \textbf{racional}: ela sempre ``some''
+ao subtrair uma cópia deslocada de si mesma.
+\end{exemplo}
+
+\begin{definicao}{Irracionais ($\mathbb{I}$)}
+São os números com representação decimal \textbf{infinita e não periódica}
+— nunca podem ser escritos como fração exata. Exemplos clássicos:
+\[
+\sqrt{2} = 1{,}41421356\ldots \qquad \pi = 3{,}14159265\ldots \qquad e = 2{,}71828182\ldots
+\]
+\end{definicao}
+
+\begin{atencao}{Erro comum}
+$\sqrt{4} = 2$ é \textbf{racional} (a raiz ``fechou certo''). Só raízes que
+\emph{não} são exatas ($\sqrt{2}, \sqrt{3}, \sqrt{5}, \sqrt{7}, \dots$) são
+irracionais. Sempre verifique se o número dentro da raiz é um quadrado
+perfeito antes de classificar.
+\end{atencao}
+
+\begin{definicao}{Reais ($\mathbb{R}$)}
+É a \textbf{união} de todos os racionais com todos os irracionais — todo
+ponto da reta numérica:
+\[
+\mathbb{R} = \mathbb{Q} \cup \mathbb{I}
+\]
+\end{definicao}
+
+\section{Enxergando a hierarquia (diagrama de Venn)}
+
+Repare que $\mathbb{N}$ está \emph{dentro} de $\mathbb{Z}$, que está dentro de
+$\mathbb{Q}$, que está dentro de $\mathbb{R}$. Já $\mathbb{I}$ é uma ``ilha''
+separada de $\mathbb{Q}$ dentro de $\mathbb{R}$ — um número nunca é racional
+\emph{e} irracional ao mesmo tempo.
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[thick, fill=purple!5] (0,0) ellipse (5.6cm and 3.4cm);
+  \node at (-4.7,2.9) {\textbf{$\mathbb{R}$}};
+
+  \draw[thick, fill=orange!12] (-1.6,0) ellipse (3.6cm and 2.6cm);
+  \node at (-4.0,2.0) {\textbf{$\mathbb{Q}$}};
+
+  \draw[thick, fill=green!15] (-1.6,0) ellipse (2.5cm and 1.8cm);
+  \node at (-3.0,1.2) {\textbf{$\mathbb{Z}$}};
+
+  \draw[thick, fill=yellow!30] (-1.6,0) ellipse (1.4cm and 1.0cm);
+  \node at (-1.6,0) {$\mathbb{N}$};
+
+  \draw[thick, fill=blue!15] (2.6,0) ellipse (2.1cm and 2.6cm);
+  \node at (2.6,0) {$\mathbb{I}$};
+
+  \node at (-1.6,-1.5) {\footnotesize $\ldots,-2,-1$};
+  \node at (0.3,0.9) {\footnotesize $\frac{1}{2},\ 0{,}75$};
+  \node at (2.6,0.9) {\footnotesize $\sqrt2$};
+  \node at (2.6,-0.9) {\footnotesize $\pi,\ e$};
+\end{tikzpicture}
+\end{center}
+
+\begin{center}
+\begin{tikzpicture}[
+  node distance=0mm,
+  every node/.style={font=\small}
+]
+  \node (r) {$\mathbb{N} \ \subset\ \mathbb{Z} \ \subset\ \mathbb{Q} \ \subset\ \mathbb{R} \qquad\qquad \mathbb{I} \subset \mathbb{R}, \quad \mathbb{Q}\cap\mathbb{I}=\varnothing$};
+\end{tikzpicture}
+\end{center}
+
+\section{Por que ``fechamento'' de operações importa}
+
+\begin{dica}{Ideia-chave}
+Um conjunto é \textbf{fechado} para uma operação se o resultado dessa
+operação, aplicada a elementos do conjunto, \textbf{sempre} continua no
+mesmo conjunto. Isso explica por que os conjuntos foram ``inventados'' na
+ordem $\mathbb{N} \to \mathbb{Z} \to \mathbb{Q} \to \mathbb{R}$.
+\end{dica}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Operação} & $\mathbb{N}$ & $\mathbb{Z}$ & $\mathbb{Q}$ & $\mathbb{R}$ \\
+\hline
+Adição / Multiplicação & \checkmark & \checkmark & \checkmark & \checkmark \\
+Subtração & \textcolor{red}{$\times$}\ (ex.\ $2-5$) & \checkmark & \checkmark & \checkmark \\
+Divisão & \textcolor{red}{$\times$}\ (ex.\ $1\div 2$) & \textcolor{red}{$\times$}\ (ex.\ $1\div 2$) & \checkmark & \checkmark \\
+Radiciação ($\sqrt{\cdot}$) & \textcolor{red}{$\times$}\ (ex.\ $\sqrt2$) & \textcolor{red}{$\times$} & \textcolor{red}{$\times$} & \checkmark \\
+\hline
+\end{tabular}
+\end{center}
+Ou seja: cada vez que uma operação ``vazava'' para fora do conjunto, um
+conjunto maior precisou ser criado. Isso é a mesma lógica que aparece
+depois em \textbf{domínio de funções} (Tema 6): você vai excluir do domínio
+exatamente os valores que ``vazam'' para fora de $\mathbb{R}$ (divisão por
+zero, raiz de índice par de número negativo).
+
+\section{Reta numérica}
+
+Todo número real corresponde a exatamente um ponto na reta. Isso é a
+ferramenta que você vai usar sem parar no Tema de Intervalos e Inequações.
+
+\begin{center}
+\begin{tikzpicture}[scale=1]
+  \draw[-{Stealth[length=2.5mm]}, thick] (-4.5,0) -- (4.5,0);
+  \foreach \x in {-4,-3,-2,-1,0,1,2,3,4}
+    \draw (\x,0.08) -- (\x,-0.08) node[below]{\small \x};
+  \filldraw[blue] (-2,0) circle (2pt) node[above]{\small $-2 \in \mathbb{Z}$};
+  \filldraw[green!50!black] (1.5,0) circle (2pt) node[above]{\small $\frac{3}{2}\in\mathbb{Q}$};
+  \filldraw[orange] (2.236,0) circle (2pt) node[above right]{\small $\sqrt{5}\in\mathbb{I}$};
+\end{tikzpicture}
+\end{center}
+
+\section*{Resumo relâmpago}
+\begin{itemize}[nosep]
+  \item $\mathbb{N}$: contar (sem negativos, sem frações).
+  \item $\mathbb{Z}$: $\mathbb{N}$ + negativos.
+  \item $\mathbb{Q}$: tudo que vira fração exata \textbf{ou} dízima periódica.
+  \item $\mathbb{I}$: decimal infinito \textbf{não} periódico ($\sqrt{\text{não quadrado perfeito}}$, $\pi$, $e$).
+  \item $\mathbb{R} = \mathbb{Q}\cup\mathbb{I}$: toda a reta numérica.
+\end{itemize}
+
+\end{document}
